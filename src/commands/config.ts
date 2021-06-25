@@ -5,13 +5,13 @@ interface RawConfig {
 	user: string;
 	password: string;
 	workspace: string;
-  logCalls: boolean;
+	logCalls: boolean;
 }
 
 export interface Config {
 	basic: string;
 	workspace: string;
-  logCalls: boolean;
+	logCalls: boolean;
 }
 
 let config: Config | undefined;
@@ -40,7 +40,7 @@ export function loadConfig(): Config {
 			return (config = {
 				workspace,
 				basic: Buffer.from(`${user}:${password}`).toString('base64'),
-        logCalls,
+				logCalls,
 			});
 		}
 	}

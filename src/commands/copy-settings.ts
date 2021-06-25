@@ -31,7 +31,11 @@ export async function copySettings(source: string, destination: string) {
 		REPOSITORIES,
 		`${source}/branching-model/settings`,
 	);
-	await client.put(REPOSITORIES, `${destination}/branching-model/settings`, model);
+	await client.put(
+		REPOSITORIES,
+		`${destination}/branching-model/settings`,
+		model,
+	);
 
 	console.log('Copying pipeline config...');
 	const pipeConfig = await client.get(
@@ -39,6 +43,6 @@ export async function copySettings(source: string, destination: string) {
 		`${source}/pipelines_config`,
 	);
 	await client.put(REPOSITORIES, `${destination}/pipelines_config`, {
-    enabled: pipeConfig.enabled,
-  });
+		enabled: pipeConfig.enabled,
+	});
 }

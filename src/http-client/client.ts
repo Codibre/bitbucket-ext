@@ -19,11 +19,13 @@ class Client {
 			.set('content-type', 'application/json')
 			.set('Authorization', `Basic ${config.basic}`);
 
-    if (config.logCalls) {
-      result = result.use(require('superdebug')((x: string) => console.info(`${x}\n\n\n`)));
-    }
+		if (config.logCalls) {
+			result = result.use(
+				require('superdebug')((x: string) => console.info(`${x}\n\n\n`)),
+			);
+		}
 
-    return result;
+		return result;
 	}
 	req(method: Methods, resource: string, path: string) {
 		const config = loadConfig();

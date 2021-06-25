@@ -12,11 +12,17 @@ program
 	.action(wrap(copySettings));
 
 program
-  .command('create-repo <repoName>')
-  .option('-P, --private', 'Created project must to be private')
-  .option('-p, --project <projectName>', 'Project where the repository will be put')
-  .option('-s, --settings <projectSettings>', 'Source project from where the settings may be copied')
-  .action(wrap(createRepo));
+	.command('create-repo <repoName>')
+	.option('-P, --private', 'Created project must to be private')
+	.option(
+		'-p, --project <projectName>',
+		'Project where the repository will be put',
+	)
+	.option(
+		'-s, --settings <projectSettings>',
+		'Source project from where the settings may be copied',
+	)
+	.action(wrap(createRepo));
 
 program.version(process.env.NPM_PACKAGE_VERSION!);
 
