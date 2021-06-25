@@ -1,8 +1,7 @@
 {
-  "name": "bitbucket-copy-settings",
+  "name": "bitbucket-ext",
   "description": "A tool to manipulate your Bitbucket repositories more easily",
   "version": "0.0.0",
-  "private": true,
   "author": {
     "name": "Thiago O Santos <tos.oliveira@gmail.com>"
   },
@@ -69,11 +68,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/codibre/bitbucket-copy-settings.git"
+    "url": "https://github.com/codibre/bitbucket-ext.git"
   },
-  "homepage": "https://github.com/codibre/bitbucket-copy-settings#readme",
+  "homepage": "https://github.com/codibre/bitbucket-ext#readme",
   "bugs": {
-    "url": "https://github.com/codibre/bitbucket-copy-settings/issues"
+    "url": "https://github.com/codibre/bitbucket-ext/issues"
   },
   "keywords": [],
   "license": "MIT",
