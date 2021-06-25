@@ -1,6 +1,6 @@
 {
-  "name": "boilerplate-base",
-  "description": "This project is just a template for creation of new projects",
+  "name": "bitbucket-copy-settings",
+  "description": "A tool to manipulate your Bitbucket repositories more easily",
   "version": "0.0.0",
   "private": true,
   "author": {
@@ -63,11 +63,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/codibre/boilerplate-base.git"
+    "url": "https://github.com/codibre/bitbucket-copy-settings.git"
   },
-  "homepage": "https://github.com/codibre/boilerplate-base#readme",
+  "homepage": "https://github.com/codibre/bitbucket-copy-settings#readme",
   "bugs": {
-    "url": "https://github.com/codibre/boilerplate-base/issues"
+    "url": "https://github.com/codibre/bitbucket-copy-settings/issues"
   },
   "keywords": [],
   "license": "MIT",
