@@ -33,7 +33,7 @@ module.exports = {
         },
       },
     ],
-    '@typescript-eslint/no-explicit-any': 'error',
+    '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-empty-function': 'error',
     '@typescript-eslint/no-unnecessary-type-assertion': 'error',
     '@typescript-eslint/no-unused-expressions': 'warn',
@@ -46,7 +46,7 @@ module.exports = {
       },
     ],
     '@typescript-eslint/semi': ['error', 'always'],
-    camelcase: 'error',
+    camelcase: 'off',
     'comma-dangle': ['error', 'always-multiline'],
     complexity: [
       'off',

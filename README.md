@@ -23,7 +23,7 @@ npm i -g bitbucket-copy-settings
 
 ## How to use it
 
-First, create your config-file in your home or current folder with the following properties:
+First, create your config file named **bitbucket-ext.json** in your home or current folder with the following properties:
 
 ```ts
 {
@@ -33,7 +33,15 @@ First, create your config-file in your home or current folder with the following
 }
 ```
 
-Now, just use one of the commands available (for now, just one lol):
+Now, just use one of the commands available:
+
+### create-repo
+
+This command will create a new repo for you
+
+```
+bitbucket-ext create-repo <repository name> --private --project <project name>
+```
 
 ### copy-settings
 
