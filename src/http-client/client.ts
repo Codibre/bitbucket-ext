@@ -15,9 +15,10 @@ export enum Methods {
 class Client {
 	rawReq(method: Methods, uri: string) {
 		const config = loadConfig();
-		let result = request[method](uri)
-			.set('content-type', 'application/json')
-			.set('Authorization', `Basic ${config.basic}`);
+		let result = request[method](uri).set(
+			'Authorization',
+			`Basic ${config.basic}`,
+		);
 
 		if (config.logCalls) {
 			result = result.use(
@@ -47,13 +48,17 @@ class Client {
 	async put(resource: string, path: string, payload?: object) {
 		let req = this.req(Methods.PUT, resource, path);
 		if (payload) {
-			req = req.send(payload);
+			req = req.set('content-type', 'application/json').send(payload);
 		}
 		return (await req).body;
 	}
 
 	async patch(resource: string, path: string, payload: object) {
-		return (await this.req(Methods.PATCH, resource, path).send(payload)).body;
+		return (
+			await this.req(Methods.PATCH, resource, path)
+				.set('content-type', 'application/json')
+				.send(payload)
+		).body;
 	}
 
 	async delete(resource: string, path: string) {
