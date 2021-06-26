@@ -1,12 +1,13 @@
 import { client } from '../http-client/client';
 import { copySettings } from './copy-settings';
+import { getError } from './print-error';
 
-export async function createRepo(
+export async function* createRepo(
 	repositoryName: string,
 	options: { private?: boolean; project?: string; settings?: string },
 ) {
-	console.log('Creating repository');
-	console.log(options);
+	yield 'Creating repository';
+	yield options;
 	try {
 		await client.post('repositories', repositoryName, {
 			is_private: options.private !== undefined,
@@ -15,14 +16,12 @@ export async function createRepo(
 			},
 		});
 	} catch (err) {
-		console.log(
-			`${err.response?.text || err.message}!${
-				options.settings ? "\n\n\nBut we'll apply settings anyway!" : ''
-			}`,
-		);
+		yield `${getError(err)}!${
+			options.settings ? "\n\n\nBut we'll apply settings anyway!" : ''
+		}`;
 	}
 
 	if (options.settings) {
-		await copySettings(options.settings, repositoryName);
+		yield* copySettings(options.settings, repositoryName);
 	}
 }

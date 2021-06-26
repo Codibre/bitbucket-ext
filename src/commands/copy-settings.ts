@@ -1,48 +1,53 @@
-import { fluentAsync } from '@codibre/fluent-iterable';
-import { atLeastYouTried } from '../http-client/at-least-you-tried';
 import { client } from '../http-client/client';
-import { getAll } from '../http-client/get-all';
+import { doForAll } from '../http-client/do-for-all';
+import { getError } from './print-error';
 
 const REPOSITORIES = 'repositories';
-export async function copySettings(source: string, destination: string) {
-	console.log('Copying default reviewers...');
-	await fluentAsync(
-		getAll(REPOSITORIES, `${source}/default-reviewers`),
-	).forEach((users: { account_id: string }[]) =>
-		atLeastYouTried(users, (x) =>
+export async function* copySettings(source: string, destination: string) {
+	yield 'Copying default reviewers...';
+	yield* doForAll(
+		REPOSITORIES,
+		`${source}/default-reviewers`,
+		(x: { account_id: string }) =>
 			client.put(
 				REPOSITORIES,
 				`${destination}/default-reviewers/${x.account_id}`,
 			),
-		),
 	);
 
-	console.log('Copying branch restrictions...');
-	await fluentAsync(
-		getAll(REPOSITORIES, `${source}/branch-restrictions`),
-	).forEach((payloads) =>
-		atLeastYouTried(payloads, (payload) =>
+	yield 'Copying branch restrictions...';
+	yield* doForAll(
+		REPOSITORIES,
+		`${source}/branch-restrictions`,
+		(payload: object) =>
 			client.post(REPOSITORIES, `${destination}/branch-restrictions`, payload),
-		),
 	);
 
-	console.log('Copying branching model...');
-	const model = await client.get(
-		REPOSITORIES,
-		`${source}/branching-model/settings`,
-	);
-	await client.put(
-		REPOSITORIES,
-		`${destination}/branching-model/settings`,
-		model,
-	);
+	yield 'Copying branching model...';
+	try {
+		const model = await client.get(
+			REPOSITORIES,
+			`${source}/branching-model/settings`,
+		);
+		await client.put(
+			REPOSITORIES,
+			`${destination}/branching-model/settings`,
+			model,
+		);
+	} catch (err) {
+		yield getError(err);
+	}
 
-	console.log('Copying pipeline config...');
-	const pipeConfig = await client.get(
-		REPOSITORIES,
-		`${source}/pipelines_config`,
-	);
-	await client.put(REPOSITORIES, `${destination}/pipelines_config`, {
-		enabled: pipeConfig.enabled,
-	});
+	yield 'Copying pipeline config...';
+	try {
+		const pipeConfig = await client.get(
+			REPOSITORIES,
+			`${source}/pipelines_config`,
+		);
+		await client.put(REPOSITORIES, `${destination}/pipelines_config`, {
+			enabled: pipeConfig.enabled,
+		});
+	} catch (err) {
+		yield getError(err);
+	}
 }
