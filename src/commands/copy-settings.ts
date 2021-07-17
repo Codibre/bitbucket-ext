@@ -1,8 +1,9 @@
 import { client } from '../http-client/client';
 import { doForAll } from '../http-client/do-for-all';
+import { createFaultingBranches } from './create-faulting-branches';
 import { getError } from './print-error';
 
-const REPOSITORIES = 'repositories';
+export const REPOSITORIES = 'repositories';
 export async function* copySettings(source: string, destination: string) {
 	yield 'Copying default reviewers...';
 	yield* doForAll(
@@ -15,12 +16,16 @@ export async function* copySettings(source: string, destination: string) {
 			),
 	);
 
-	yield 'Copying branch restrictions...';
+	yield 'Deleting current branch restrictions...';
 	yield* doForAll(
 		REPOSITORIES,
-		`${source}/branch-restrictions`,
-		(payload: object) =>
-			client.post(REPOSITORIES, `${destination}/branch-restrictions`, payload),
+		`${destination}/branch-restrictions`,
+		(x: { id: number }) => {
+			return client.delete(
+				REPOSITORIES,
+				`${destination}/branch-restrictions/${x.id}`,
+			);
+		},
 	);
 
 	yield 'Copying branching model...';
@@ -29,6 +34,7 @@ export async function* copySettings(source: string, destination: string) {
 			REPOSITORIES,
 			`${source}/branching-model/settings`,
 		);
+		await createFaultingBranches(model, destination);
 		await client.put(
 			REPOSITORIES,
 			`${destination}/branching-model/settings`,
@@ -37,6 +43,14 @@ export async function* copySettings(source: string, destination: string) {
 	} catch (err) {
 		yield getError(err);
 	}
+
+	yield 'Copying branch restrictions...';
+	yield* doForAll(
+		REPOSITORIES,
+		`${source}/branch-restrictions`,
+		(payload: object) =>
+			client.post(REPOSITORIES, `${destination}/branch-restrictions`, payload),
+	);
 
 	yield 'Copying pipeline config...';
 	try {

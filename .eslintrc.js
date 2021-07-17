@@ -80,7 +80,7 @@ module.exports = {
     'no-magic-numbers': [
       'error',
       {
-        ignore: [0, 1, -1],
+        ignore: [0, 1, -1, 2],
       },
     ],
     'no-multiple-empty-lines': [

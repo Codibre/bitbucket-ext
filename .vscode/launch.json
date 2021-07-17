@@ -17,6 +17,20 @@
           "${workspaceRoot}/src/index.ts"
         ]
 			},
+			{
+				"type": "node",
+        "request": "launch",
+        "name": "Launch command",
+        "skipFiles": [
+            "<node_internals>/**"
+        ],
+				"cwd": "${workspaceRoot}",
+				"runtimeArgs": ["-r", "ts-node/register"],
+				"args": [
+          "${workspaceRoot}/src/command.ts",
+          "create-repo", "my-test-repo5", "-P", "-p", "INT", "-s", "api-flight-search"
+        ]
+			},
       {
         "type": "node",
         "request": "launch",
