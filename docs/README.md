@@ -1,19 +1,29 @@
-fluent-iterable - v0.0.3
+fluent-iterable - v0.0.4
 
-# fluent-iterable - v0.0.3
+# fluent-iterable - v0.0.4
 
 ## Table of contents
+
+### Variables
+
+- [REPOSITORIES](README.md#repositories)
 
 ### Functions
 
 - [copySettings](README.md#copysettings)
 - [createRepo](README.md#createrepo)
 
+## Variables
+
+### REPOSITORIES
+
+• `Const` **REPOSITORIES**: *repositories*= 'repositories'
+
 ## Functions
 
 ### copySettings
 
-▸ **copySettings**(`source`: *string*, `destination`: *string*): *Promise*<void\>
+▸ **copySettings**(`source`: *string*, `destination`: *string*): *AsyncGenerator*<any, void, undefined\>
 
 #### Parameters:
 
@@ -22,13 +32,13 @@ Name | Type |
 `source` | *string* |
 `destination` | *string* |
 
-**Returns:** *Promise*<void\>
+**Returns:** *AsyncGenerator*<any, void, undefined\>
 
 ___
 
 ### createRepo
 
-▸ **createRepo**(`repositoryName`: *string*, `options`: { `private?`: *boolean* ; `project?`: *string* ; `settings?`: *string*  }): *Promise*<void\>
+▸ **createRepo**(`repositoryName`: *string*, `options`: { `private?`: *boolean* ; `project?`: *string* ; `settings?`: *string*  }): *AsyncGenerator*<any, void, undefined\>
 
 #### Parameters:
 
@@ -40,4 +50,4 @@ Name | Type |
 `options.project?` | *string* |
 `options.settings?` | *string* |
 
-**Returns:** *Promise*<void\>
+**Returns:** *AsyncGenerator*<any, void, undefined\>
